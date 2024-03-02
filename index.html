@@ -8,10 +8,10 @@
      <script defer src="scripts/script.js"></script>
 </head>
 <body>
-
+    <div id="app">
 <section class="main">
-    <header class="header">
-        <div class="container">
+    <header class="header" >
+        <div class="container" >
             <div class="logo">
                 <img src="images/Logo.png" alt="Logo">
 
@@ -31,8 +31,9 @@
  
                 </ul>
             </nav>
-            <div class="currency" title="Изменить валюту" id="change-currency">$</div>
-
+            <div id="currency-price">
+            <div class="currency" title="Изменить валюту" id="change-currency"   v-on:click="changeCurrency()">{{currency}}</div>
+        </div>
         </div>
     </header>
 
@@ -90,7 +91,7 @@
 
 </section>
 
-<section class="products" id="products">
+<section class="products" id="products" id="currency-price">
     <div class="container">
         <div class="product-title common-title">выберите свой бургер</div>
         <div class="products-items" id="products-items">
@@ -104,7 +105,7 @@
                 </div>
                 <div class="products-item-extra">
                     <div class="products-item-info">
-                        <div class="products-item-price" >{{product.price}} $</div>
+                        <div class="products-item-price" >{{product.price}} {{currency}}</div>
                         <div class="products-item-weight">{{product.grams}}  гр</div>
                     </div>
                     <div class="products-item-action">
@@ -157,6 +158,6 @@
 
 
 </footer>
-
+</div>
 </body>
 </html>

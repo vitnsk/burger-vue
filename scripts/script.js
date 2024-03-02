@@ -1,11 +1,11 @@
 
 
 
-Vue.createApp({
-  data() {
+  const burg ={
+    data() {
     return{
-      
-productsData:[
+      currency: "$",
+  productsData:[
     {
       image: "/images/1.png",
       title: "Бургер чеддер & бекон",
@@ -92,8 +92,37 @@ productsData:[
       grams: 360
     }
   ]}
+},
+methods:{
+
+  changeCurrency(){
+    let newCurrency = "$";
+    let coefficient = 1;
+
+    if (this.currency === "$") {
+      newCurrency = "₽";
+      coefficient = 80;
+    } else if (this.currency === "₽") {
+      newCurrency = "BYN";
+      coefficient = 3;
+    } else if (this.currency === 'BYN') {
+      newCurrency = '€';
+      coefficient = 0.9;
+    } else if (this.currency === '€') {
+      newCurrency = '¥';
+      coefficient = 6.9;
+    }
+    this.currency = newCurrency;
+
+this.productsData.forEach((item)=> {
+  item.price = +(item.basePrice * coefficient).toFixed(1);
+})
 }
-}).mount('#products-items');
+}
+  }
+  Vue.createApp(burg).mount('#app');
+  
+  
 
 
 document.getElementById("main-action-button").onclick = function () {
@@ -135,34 +164,3 @@ document.getElementById("order-action").onclick = function () {
         alert("Спасибо за заказ! Мы скоро свяжемся с вами!")
     }
 }
-
-
-
-let prices = document.getElementsByClassName("products-item-price")
-document.getElementById("change-currency").onclick = function (e) {
-    let currentCurrency = e.target.innerText;
-
-    let newCurrency = "$";
-    let coefficient = 1;
-
-    if (currentCurrency === "$") {
-        newCurrency = "₽";
-        coefficient = 80;
-    } else if (currentCurrency === "₽") {
-        newCurrency = "BYN";
-        coefficient = 3;
-    } else if (currentCurrency === 'BYN') {
-        newCurrency = '€';
-        coefficient = 0.9;
-    } else if (currentCurrency === '€') {
-        newCurrency = '¥';
-        coefficient = 6.9;
-    }
-    e.target.innerText = newCurrency;
-
-    for (let i = 0; i < prices.length; i++) {
-        prices[i].innerText = +(prices[i].getAttribute("data-base-price") * coefficient).toFixed(1) + " " + newCurrency;
-    }
-}
-
-
